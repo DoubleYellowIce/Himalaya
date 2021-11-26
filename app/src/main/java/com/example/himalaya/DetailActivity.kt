@@ -3,9 +3,14 @@ package com.example.himalaya
 import android.graphics.Color
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.LayoutDirection
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.himalaya.adapters.DetailListAdapter
 import com.example.himalaya.base.BaseActivity
 import com.example.himalaya.base.BaseApplication
 import com.example.himalaya.interfaces.IAlbumDetailViewCallback
@@ -32,10 +37,13 @@ class DetailActivity:BaseActivity(), IAlbumDetailViewCallback {
 
     private lateinit var mAlbumDetailPresenter: AlbumDetailPresenter
 
+    private lateinit var mAlbumDetailList:RecyclerView
+
+    private lateinit var detailListAdapter:DetailListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-//        window.statusBarColor=Color.TRANSPARENT
         window.decorView.systemUiVisibility=View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         initView()
         mAlbumDetailPresenter= AlbumDetailPresenter.albumDetailPresenter
@@ -48,10 +56,18 @@ class DetailActivity:BaseActivity(), IAlbumDetailViewCallback {
         mSmallCover=findViewById(R.id.iv_small_cover)
         mAlbumTitle=findViewById(R.id.iv_album_title)
         mAlbumAuthor=findViewById(R.id.iv_album_author)
+        val layoutManager=LinearLayoutManager(this)
+        detailListAdapter=DetailListAdapter()
+        mAlbumDetailList=findViewById<RecyclerView?>(R.id.album_detail_list).apply {
+            setLayoutManager(layoutManager)
+            adapter=detailListAdapter
+        }
     }
 
     override fun onDetailListLoaded(tracks: List<Track>) {
-        TODO("Not yet implemented")
+        //to display the information of the album's tracks
+        detailListAdapter.setData(tracks)
+
     }
 
     override fun onAlbumLoaded(album: Album) {
