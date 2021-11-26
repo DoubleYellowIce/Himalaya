@@ -4,17 +4,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ximalaya.ting.android.opensdk.model.track.Track
+import java.util.*
 
 class DetailListAdapter:RecyclerView.Adapter<DetailListAdapter.ViewHolder>() {
 
-    var tracks:List<Track>?=null
+    private var mDetailData=LinkedList<Track>()
 
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        parent.rootView
+        TODO("Not yet implemented")
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -22,10 +23,12 @@ class DetailListAdapter:RecyclerView.Adapter<DetailListAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return mDetailData.size
     }
 
     fun setData(tracks: List<Track>) {
-        this.tracks=tracks
+        mDetailData.clear()
+        mDetailData.addAll(tracks)
+        notifyDataSetChanged()
     }
 }
