@@ -1,7 +1,6 @@
 package com.example.himalaya.presenters
 
-import android.util.Log
-import com.example.himalaya.R
+
 import com.example.himalaya.base.BaseApplication
 import com.example.himalaya.interfaces.IAlbumDetailPresenter
 import com.example.himalaya.interfaces.IAlbumDetailViewCallback
@@ -10,9 +9,16 @@ import com.ximalaya.ting.android.opensdk.constants.DTransferConstants
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest
 import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack
 import com.ximalaya.ting.android.opensdk.model.album.Album
+import com.ximalaya.ting.android.opensdk.model.track.Track
 import com.ximalaya.ting.android.opensdk.model.track.TrackList
 import java.util.*
 import kotlin.collections.HashMap
+
+ /**
+  * @Author DoubleYellowIce
+  * @Date 2021/11/25
+  */
+
 
 class AlbumDetailPresenter private constructor():IAlbumDetailPresenter {
 
@@ -23,8 +29,6 @@ class AlbumDetailPresenter private constructor():IAlbumDetailPresenter {
     companion object{
         val albumDetailPresenter=AlbumDetailPresenter()
     }
-
-
 
     override fun pull2RefreshMore() {
         TODO("Not yet implemented")
@@ -44,7 +48,7 @@ class AlbumDetailPresenter private constructor():IAlbumDetailPresenter {
             override fun onSuccess(trackList: TrackList?) {
                 val tracks=trackList?.tracks
                 if (tracks!=null) {
-                    LogUtil.d(BaseApplication.TestToken, "the size of tracklist is ${tracks.size}")
+                    handleAlbumDetailResult(tracks)
                 }
             }
 
@@ -55,7 +59,13 @@ class AlbumDetailPresenter private constructor():IAlbumDetailPresenter {
 
     }
 
-    override fun registerViewCallback(iAlbumDetailViewCallback: IAlbumDetailViewCallback) {
+     private fun handleAlbumDetailResult(tracks: List<Track>) {
+        for (mAlbumDetailCallback in mAlbumDetailViewCallbacks){
+            mAlbumDetailCallback.onDetailListLoaded(tracks)
+        }
+     }
+
+     override fun registerViewCallback(iAlbumDetailViewCallback: IAlbumDetailViewCallback) {
         if (!mAlbumDetailViewCallbacks.contains(iAlbumDetailViewCallback)){
             mAlbumDetailViewCallbacks.add(iAlbumDetailViewCallback)
             if (mTargetAlbum!=null){
@@ -67,7 +77,6 @@ class AlbumDetailPresenter private constructor():IAlbumDetailPresenter {
     override fun unregisterViewCallback(iAlbumDetailViewCallback: IAlbumDetailViewCallback) {
         if (mAlbumDetailViewCallbacks.contains(iAlbumDetailViewCallback)){
             mAlbumDetailViewCallbacks.remove(iAlbumDetailViewCallback)
-
         }
     }
 
