@@ -1,36 +1,50 @@
 package com.example.himalaya
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.example.himalaya.base.BaseApplication
-import com.example.himalaya.utils.LogUtil
-import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest
-import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack
-import com.ximalaya.ting.android.opensdk.model.banner.CategoryBannerList
-import com.ximalaya.ting.android.opensdk.model.category.CategoryList
 
-class MainActivity : AppCompatActivity() {
+import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
+import com.example.himalaya.adapters.IndicatorAdapter
+import com.example.himalaya.adapters.MainContentAdapter
+import net.lucode.hackware.magicindicator.MagicIndicator
+import net.lucode.hackware.magicindicator.ViewPagerHelper
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
+
+
+
+class MainActivity : FragmentActivity() {
+
+    private lateinit var mMagicIndicator: MagicIndicator
+    private lateinit var commonNavigator: CommonNavigator
+    private lateinit var mContentPager: ViewPager
+    private lateinit var mainContentAdapter: MainContentAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        LogUtil.v(BaseApplication.TestToken,"onSuccess")
-
-        val map=HashMap<String,String>()
-        CommonRequest.getCategories(map,object:IDataCallBack<CategoryList>{
-            override fun onSuccess(p0: CategoryList?) {
-                LogUtil.v(BaseApplication.TestToken,"onSuccess")
-                val categories=p0?.categories
-                categories?.forEach {
-                    LogUtil.v(BaseApplication.TestToken, "the name is ${it.categoryName}")
-                    LogUtil.v(BaseApplication.TestToken, "the coverUrlLarge is ${it.coverUrlLarge}")
-                }
-            }
-
-            override fun onError(p0: Int, p1: String?) {
-
-            }
-
-        })
+        initView()
     }
+
+    private fun initView(){
+
+        mainContentAdapter= MainContentAdapter(supportFragmentManager)
+        mContentPager=findViewById(R.id.view_pager)
+        mContentPager.adapter=mainContentAdapter
+
+        commonNavigator= CommonNavigator(this).apply {
+            adapter=IndicatorAdapter(mContentPager)
+            isAdjustMode=true
+
+        }
+
+        mMagicIndicator=findViewById<MagicIndicator?>(R.id.magic_indicator).apply {
+            navigator=commonNavigator
+            setBackgroundColor(this@MainActivity.resources.getColor(R.color.main_color))
+        }
+
+        ViewPagerHelper.bind(mMagicIndicator, mContentPager)
+    }
+
+
 
 }

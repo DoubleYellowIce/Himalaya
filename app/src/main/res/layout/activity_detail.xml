@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_large_cover"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitXY">
+
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/subscription_container"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/iv_large_cover"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shape_subscription_bg"
+            android:gravity="center"
+            android:text="订阅"
+            android:textColor="@color/white"
+            android:textSize="14dp">
+        </TextView>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/player_control_container"
+        android:background="@color/gray"
+        android:layout_below="@id/subscription_container"
+        >
+        <ImageView
+            android:id="@+id/play_control"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_play"
+            >
+        </ImageView>
+
+        <TextView
+            android:layout_toRightOf="@id/play_control"
+            android:textSize="14sp"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="继续播放"
+            ></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="选集"
+            android:layout_marginRight="4dp"
+            android:layout_toLeftOf="@+id/arrow_down_icon"
+            >
+        </TextView>
+
+        <ImageButton
+            android:id="@+id/arrow_down_icon"
+            android:layout_width="16dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="18dp"
+            android:src="@mipmap/ic_arrow_down">
+        </ImageButton>
+    </RelativeLayout>
+
+    <com.example.himalaya.views.RoundRectImageView
+        android:id="@+id/iv_small_cover"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/iv_large_cover"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="-40dp"
+        android:scaleType="fitXY">
+
+    </com.example.himalaya.views.RoundRectImageView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_large_cover"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="-30dp"
+        android:layout_toRightOf="@+id/iv_small_cover"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/iv_album_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="标题"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="18sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/iv_album_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="作者个人信息"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textColor="@color/subtext_title"
+            android:textSize="10sp">
+
+        </TextView>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/album_detail_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/player_control_container">
+    </androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>
