@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Himalaya</string>
+    <string name="recommendation">推荐</string>
+    <string name="history">历史</string>
+    <string name="subscription">订阅</string>
+
 </resources>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ./app/libs/TingPhoneOpenSDK-8.0.7.aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1c7ebd88642ba01c3a3723c090874296/transformed/jetified-TingPhoneOpenSDK-8.0.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1c7ebd88642ba01c3a3723c090874296/transformed/jetified-TingPhoneOpenSDK-8.0.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1c7ebd88642ba01c3a3723c090874296/transformed/jetified-TingPhoneOpenSDK-8.0.7/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
