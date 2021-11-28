@@ -1,6 +1,7 @@
 package com.example.himalaya
 
 import android.graphics.Color
+import android.graphics.Rect
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.LayoutDirection
@@ -21,6 +22,7 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.ximalaya.ting.android.opensdk.model.album.Album
 import com.ximalaya.ting.android.opensdk.model.track.Track
+import net.lucode.hackware.magicindicator.buildins.UIUtil
 import java.lang.Exception
 
 class DetailActivity:BaseActivity(), IAlbumDetailViewCallback {
@@ -61,6 +63,19 @@ class DetailActivity:BaseActivity(), IAlbumDetailViewCallback {
         mAlbumDetailList=findViewById<RecyclerView?>(R.id.album_detail_list).apply {
             setLayoutManager(layoutManager)
             adapter=detailListAdapter
+            addItemDecoration(object :RecyclerView.ItemDecoration(){
+                override fun getItemOffsets(
+                    outRect: Rect,
+                    view: View,
+                    parent: RecyclerView,
+                    state: RecyclerView.State
+                ) {
+                    outRect.top= UIUtil.dip2px(view.context, 2.0)
+                    outRect.bottom= UIUtil.dip2px(view.context, 2.0)
+                    outRect.left= UIUtil.dip2px(view.context, 2.0)
+                    outRect.right= UIUtil.dip2px(view.context, 2.0)
+                }
+            })
         }
     }
 

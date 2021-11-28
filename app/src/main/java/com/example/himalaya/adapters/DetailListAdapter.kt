@@ -7,15 +7,20 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import com.example.himalaya.R
 import com.ximalaya.ting.android.opensdk.model.track.Track
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DetailListAdapter:RecyclerView.Adapter<DetailListAdapter.ViewHolder>() {
 
     private var mDetailData=LinkedList<Track>()
 
+    private var mUpdateDateFormat=SimpleDateFormat("yyyy-mm-dd")
+
+    private var mDurationFormat=SimpleDateFormat("mm:ss")
+
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
         val orderText=view.findViewById<TextView>(R.id.order_text)
-        val time=view.findViewById<TextView>(R.id.time)
+        val updateTime=view.findViewById<TextView>(R.id.update_time)
         val duration=view.findViewById<TextView>(R.id.duration)
         val large_title=view.findViewById<TextView>(R.id.large_title)
         val play_count=view.findViewById<TextView>(R.id.play_count)
@@ -32,8 +37,8 @@ class DetailListAdapter:RecyclerView.Adapter<DetailListAdapter.ViewHolder>() {
         holder.apply {
             large_title.text=track.trackTitle
             play_count.text=track.playCount.toString()
-            time.text=track.timeline.toString()
-            duration.text=track.duration.toString()
+            updateTime.text=mUpdateDateFormat.format(track.updatedAt)
+            duration.text=mDurationFormat.format(track.duration*1000)
             orderText.text=track.orderNum.toString()
         }
     }
