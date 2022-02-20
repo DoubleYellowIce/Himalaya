@@ -51,8 +51,7 @@
 # 四.流程
 
 ### 推荐页面流程
-
-![image-20220219203458312](/Users/doubleyellowice/Library/Application Support/typora-user-images/image-20220219203458312.png)
+<p align="center"><img src="https://user-images.githubusercontent.com/65336599/154831903-231adb7b-69e8-42fc-b1e8-f45ce5e5f406.png">  </p>
 
 ​	如上图所示，当用户选择并点击推荐页面RecommendFragment中的某个专辑时，就会进入相对应专辑的详情界面，也就是DetailActivty，当用户选择并点击详情页面的某一集时，则会进入对应集数的播放界面，也就是PlayerActivity。
 
