@@ -12,8 +12,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView
 
 class IndicatorAdapter(private val viewPager: ViewPager):CommonNavigatorAdapter() {
-    private val mTitleDataList= listOf("推荐","订阅","历史")
 
+    private val mTitleDataList= listOf("推荐","订阅","历史")
 
     override fun getCount(): Int {
         return mTitleDataList.size
@@ -26,7 +26,7 @@ class IndicatorAdapter(private val viewPager: ViewPager):CommonNavigatorAdapter(
         colorTransitionPagerTitleView.text = mTitleDataList[index]
         colorTransitionPagerTitleView.setOnClickListener {
             LogUtil.d(BaseApplication.TestToken,"colorTransitionPagerTitleView.setOnClickListener")
-        viewPager.currentItem=index
+            viewPager.currentItem=index
         }
         return colorTransitionPagerTitleView
     }

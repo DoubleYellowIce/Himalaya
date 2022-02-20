@@ -6,8 +6,10 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.2953703703703704" />
         <entry key="app/src/main/res/drawable/shape_album_item_bg.xml" value="0.2635" />
         <entry key="app/src/main/res/drawable/shape_subscription_bg.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_base.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.4197952218430034" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2109375" />
+        <entry key="app/src/main/res/layout/activity_player.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_empty_view.xml" value="0.3296875" />
         <entry key="app/src/main/res/layout/fragment_error_view.xml" value="0.16" />
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.21510416666666668" />
@@ -15,6 +17,7 @@
         <entry key="app/src/main/res/layout/fragment_recommend.xml" value="0.21510416666666668" />
         <entry key="app/src/main/res/layout/fragment_subscription.xml" value="0.21510416666666668" />
         <entry key="app/src/main/res/layout/item_detail_layout.xml" value="0.30978260869565216" />
+        <entry key="app/src/main/res/layout/item_detail_list.xml" value="0.30978260869565216" />
         <entry key="app/src/main/res/layout/recommend_item.xml" value="0.8995290423861853" />
       </map>
     </option>

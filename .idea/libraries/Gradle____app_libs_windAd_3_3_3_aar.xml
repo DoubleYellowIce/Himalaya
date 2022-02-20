@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: ./app/libs/windAd-3.3.3.aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/458ab9e2b35cf041f773fa82fe9fa981/transformed/jetified-windAd-3.3.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/458ab9e2b35cf041f773fa82fe9fa981/transformed/jetified-windAd-3.3.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/458ab9e2b35cf041f773fa82fe9fa981/transformed/jetified-windAd-3.3.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/782abba0c4658a6ec7b4a6f613d8eab8/transformed/jetified-windAd-3.3.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/782abba0c4658a6ec7b4a6f613d8eab8/transformed/jetified-windAd-3.3.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/782abba0c4658a6ec7b4a6f613d8eab8/transformed/jetified-windAd-3.3.3/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

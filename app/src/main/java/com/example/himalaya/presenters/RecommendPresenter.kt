@@ -1,7 +1,6 @@
 package com.example.himalaya.presenters
 
 import androidx.annotation.NonNull
-import com.example.himalaya.R
 import com.example.himalaya.base.BaseApplication
 import com.example.himalaya.interfaces.IRecommendPresenter
 import com.example.himalaya.interfaces.IRecommendViewCallback
@@ -44,6 +43,17 @@ class RecommendPresenter private constructor():IRecommendPresenter{
 
         })    }
 
+    override fun registerViewCallback(t: IRecommendViewCallback) {
+        if (!mRecommendViewCallbacks.contains(t)){
+            mRecommendViewCallbacks.add(t)
+        }
+    }
+
+    override fun unregisterViewCallback(t: IRecommendViewCallback) {
+        if (mRecommendViewCallbacks.contains(t)){
+            mRecommendViewCallbacks.remove(t)
+        }    }
+
     private fun handleError(p0: Int, p1: String?) {
         for (callback in mRecommendViewCallbacks){
             callback.onError()
@@ -68,16 +78,6 @@ class RecommendPresenter private constructor():IRecommendPresenter{
         }
     }
 
-    override fun registerCallback(@NonNull iRecommendViewCallback: IRecommendViewCallback) {
-        if (!mRecommendViewCallbacks.contains(iRecommendViewCallback)){
-            mRecommendViewCallbacks.add(iRecommendViewCallback)
-        }
-    }
 
-    override fun unregisterCallback(@NonNull iRecommendViewCallback: IRecommendViewCallback) {
-        if (mRecommendViewCallbacks.contains(iRecommendViewCallback)){
-        mRecommendViewCallbacks.remove(iRecommendViewCallback)
-        }
-    }
 
 }

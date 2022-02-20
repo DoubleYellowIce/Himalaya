@@ -25,7 +25,6 @@ import net.lucode.hackware.magicindicator.buildins.UIUtil
   * @Date 2021/11/16
   */
 
-
 class RecommendFragment: BaseFragment(),IRecommendViewCallback,UILoader.OnRetryClickListener,
      RecommendListAdapter.OnRecommendItemClickListener {
 
@@ -48,20 +47,22 @@ class RecommendFragment: BaseFragment(),IRecommendViewCallback,UILoader.OnRetryC
         }
 
         mUILoader=object :UILoader(requireContext()){
+            //this UILoader will show the content depend on whether the system get the recommended List successfully or not
+            //besides the successView, there are also the emptyView,errorView and loadingView
+            //but only the successView is changeable, so getSuccessView() needed to be override
             override fun getSuccessView(container: ViewGroup): View {
                 return createSuccessView(layoutInflater,container)
             }
         }.apply { addRetryClickListener(this@RecommendFragment) }
 
         recommendPresenter=RecommendPresenter.instance.apply {
-            registerCallback(this@RecommendFragment)
+            registerViewCallback(this@RecommendFragment)
             getRecommendList()
         }
 
         if (mUILoader.parent is ViewGroup){
             (mUILoader.parent as ViewGroup).removeView(mUILoader)
         }
-
 
         return mUILoader
     }
@@ -120,7 +121,7 @@ class RecommendFragment: BaseFragment(),IRecommendViewCallback,UILoader.OnRetryC
     override fun onDestroyView() {
         LogUtil.d(BaseApplication.TestToken,"RecommendFragment onDestroyView()")
         super.onDestroyView()
-        recommendPresenter.unregisterCallback(this)
+        recommendPresenter.unregisterViewCallback(this)
     }
 
      override fun onRetryClick() {
@@ -128,7 +129,10 @@ class RecommendFragment: BaseFragment(),IRecommendViewCallback,UILoader.OnRetryC
      }
 
      override fun onItemClick(album:Album) {
-         AlbumDetailPresenter.albumDetailPresenter.mTargetAlbum=album
+         //set the albumDetailPresenter's mTargetAlbum to the album which is clicked
+         //so after the DetailActivity has register in albumDetailPresenter
+         //the albumDetailPresenter will transfer this album as parameter to the onAlbumLoaded() function in DetailActivity
+         AlbumDetailPresenter.albumDetailPresenter.setTargetAlbum(album)
          val intent=Intent(context,DetailActivity::class.java)
          startActivity(intent)
      }

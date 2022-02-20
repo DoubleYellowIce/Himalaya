@@ -1,13 +1,9 @@
 package com.example.himalaya.interfaces
 
-interface IRecommendPresenter {
+import com.example.himalaya.base.IBasePresenter
+
+interface IRecommendPresenter:IBasePresenter<IRecommendViewCallback> {
 
     fun getRecommendList()
-
-    fun registerCallback(iRecommendViewCallback: IRecommendViewCallback)
-
-    fun unregisterCallback(iRecommendViewCallback: IRecommendViewCallback)
-
-
 
 }

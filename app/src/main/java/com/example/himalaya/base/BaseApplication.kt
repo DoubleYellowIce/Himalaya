@@ -1,15 +1,18 @@
 package com.example.himalaya.base
 
 import android.app.Application
+import android.content.Context
 import android.os.Handler
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest
 import com.ximalaya.ting.android.opensdk.datatrasfer.DeviceInfoProviderDefault
+import com.ximalaya.ting.android.opensdk.player.XmPlayerManager
 
 class BaseApplication :Application(){
 
     companion object{
 
         lateinit var sHandler:Handler
+        lateinit var sContext: Context
         const val appKey="3a2515bc7ceb481572db3272325e2f4b"
         const val appSecret="7969223921608181a312649b2c3c0a51"
         const val packId="com.example.himalaya"
@@ -29,8 +32,8 @@ class BaseApplication :Application(){
             return String()
             }
         })
-
         sHandler=Handler(applicationContext.mainLooper)
-
+        sContext=baseContext
+        XmPlayerManager.getInstance(this).init()
     }
 }

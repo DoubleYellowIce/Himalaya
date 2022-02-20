@@ -10,13 +10,33 @@ import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 
+ /**
+ * @Author DoubleYellowIce
+ * @Date 2021/11/29
+ */
 
 
 class MainActivity : FragmentActivity() {
 
+    /**
+     * mMagicIndicator indicates the current fragment
+     */
     private lateinit var mMagicIndicator: MagicIndicator
+
+
+    /**
+     * commonNavigator's navigator which helps switch back and forth between the fragment
+     */
     private lateinit var commonNavigator: CommonNavigator
+
+    /**
+     *mContentPager manage the fragments
+     */
     private lateinit var mContentPager: ViewPager
+
+    /**
+     * mainContentAdapter is the mContentPager's adapter,which helps creates the fragment indirectly
+     */
     private lateinit var mainContentAdapter: MainContentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,9 +52,11 @@ class MainActivity : FragmentActivity() {
         mContentPager.adapter=mainContentAdapter
 
         commonNavigator= CommonNavigator(this).apply {
+            /**
+             * 
+             */
             adapter=IndicatorAdapter(mContentPager)
             isAdjustMode=true
-
         }
 
         mMagicIndicator=findViewById<MagicIndicator?>(R.id.magic_indicator).apply {

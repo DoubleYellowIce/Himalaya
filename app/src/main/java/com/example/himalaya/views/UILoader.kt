@@ -45,7 +45,6 @@ abstract class UILoader:FrameLayout{
                 addView(mLoadingView)
             }
             mLoadingView!!.visibility=if(mCurrentStatus==UIStatus.LOADING) VISIBLE else GONE
-//            LogUtil.d(BaseApplication.TestToken,"mLoadingView's visibility is ${mLoadingView!!.visibility}")
 
             if (mSuccessView==null){
                 mSuccessView=getSuccessView(this)
@@ -99,8 +98,9 @@ abstract class UILoader:FrameLayout{
         this.retryClickListener=onRetryClickListener
     }
 
-    fun updateUI() {
+    private fun updateUI() {
         LogUtil.d(BaseApplication.TestToken,"UILoader updateUI() the current status is $mCurrentStatus")
+        //update the ui in the main thread
         BaseApplication.sHandler.post{
             switchUIByCurrentStatus()
         }

@@ -45,7 +45,6 @@ class RecommendListAdapter:RecyclerView.Adapter<RecommendListAdapter.ViewHolder>
             itemView.setOnClickListener{
                 LogUtil.d(BaseApplication.TestToken,"holder.itemView.setOnClickListener")
                 mRecommendItemListener?.onItemClick(albumList.get(position))
-
             }
         }
     }

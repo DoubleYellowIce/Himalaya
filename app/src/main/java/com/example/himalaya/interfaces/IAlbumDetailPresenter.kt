@@ -1,6 +1,8 @@
 package com.example.himalaya.interfaces
 
-interface IAlbumDetailPresenter {
+import com.example.himalaya.base.IBasePresenter
+
+interface IAlbumDetailPresenter:IBasePresenter<IAlbumDetailViewCallback> {
 
     fun pull2RefreshMore()
 
@@ -8,7 +10,4 @@ interface IAlbumDetailPresenter {
 
     fun getAlbumDetail(albumId:Int,page:Int)
 
-    fun registerViewCallback(iAlbumDetailViewCallback: IAlbumDetailViewCallback)
-
-    fun unregisterViewCallback(iAlbumDetailViewCallback: IAlbumDetailViewCallback)
 }

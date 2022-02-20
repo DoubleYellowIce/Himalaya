@@ -22,7 +22,7 @@ import kotlin.collections.HashMap
 
 class AlbumDetailPresenter private constructor():IAlbumDetailPresenter {
 
-    var mTargetAlbum:Album?=null
+    private var mTargetAlbum:Album?=null
 
     private var mAlbumDetailViewCallbacks=LinkedList<IAlbumDetailViewCallback>()
 
@@ -51,13 +51,19 @@ class AlbumDetailPresenter private constructor():IAlbumDetailPresenter {
                     handleAlbumDetailResult(tracks)
                 }
             }
-
             override fun onError(errCode: Int, errMes: String?) {
                 LogUtil.d(BaseApplication.TestToken,"CommonRequest.getTracks:the errCode is ${errCode},the errMessage is ${errMes}")
+                    handleNetworkError()
             }
         })
 
     }
+
+     private fun handleNetworkError() {
+         for (mAlbumDetailCallback in mAlbumDetailViewCallbacks){
+             mAlbumDetailCallback.onNetworkError()
+         }
+     }
 
      private fun handleAlbumDetailResult(tracks: List<Track>) {
         for (mAlbumDetailCallback in mAlbumDetailViewCallbacks){
@@ -65,11 +71,11 @@ class AlbumDetailPresenter private constructor():IAlbumDetailPresenter {
         }
      }
 
-     override fun registerViewCallback(iAlbumDetailViewCallback: IAlbumDetailViewCallback) {
-        if (!mAlbumDetailViewCallbacks.contains(iAlbumDetailViewCallback)){
-            mAlbumDetailViewCallbacks.add(iAlbumDetailViewCallback)
+     override fun registerViewCallback(t: IAlbumDetailViewCallback) {
+        if (!mAlbumDetailViewCallbacks.contains(t)){
+            mAlbumDetailViewCallbacks.add(t)
             if (mTargetAlbum!=null){
-                iAlbumDetailViewCallback.onAlbumLoaded(mTargetAlbum!!)
+                t.onAlbumLoaded(mTargetAlbum!!)
             }
         }
     }

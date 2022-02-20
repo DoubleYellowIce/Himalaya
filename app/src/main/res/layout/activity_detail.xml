@@ -126,13 +126,12 @@
         </TextView>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:background="#fff4f4f4"
-
-        android:id="@+id/album_detail_list"
+    <FrameLayout
+        android:id="@+id/detail_list_container"
+        android:layout_below="@id/player_control_container"
         android:layout_width="match_parent"
-        android:overScrollMode="never"
-        android:layout_height="match_parent"
-        android:layout_below="@id/player_control_container">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+
 </RelativeLayout>

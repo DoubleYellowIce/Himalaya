@@ -11,4 +11,6 @@ interface IAlbumDetailViewCallback {
     fun onDetailListLoaded(tracks:List<Track>)
 
     fun onAlbumLoaded(album: Album)
+
+    fun onNetworkError()
 }

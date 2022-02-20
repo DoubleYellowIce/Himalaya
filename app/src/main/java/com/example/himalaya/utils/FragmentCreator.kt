@@ -29,6 +29,4 @@ object FragmentCreator {
         }
         return baseFragment
     }
-
-
 }
