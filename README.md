@@ -35,15 +35,13 @@ UIStatus是一个定义在UILoader的枚举类，总共有LOADING,SUCCESS,NETWOR
 ### Presenter
 前文提到过本项目采用的是MVP架构，所以该项目有较多的Presenter类，根据MVP架构规范，Presenter类应是全局只有一个实例，该项目严格遵守了此条准则，每个Presenter类都只有一个实例，
 至于是如何实现单例的，就不再赘述。
-\
-\
-这里Presenter使用的是单例模式。
+
 
 
 ### Fragment实例化方式
 
 该项目总共有三个Fragment，HistoryFragment，RecommendFragment,SubsriptionFragment，该项目没有直接实例化的方式，而是使用了简单工厂设计模式，
-统一由FragmentCreator进行实例化，由客户MainContentAdapter(继承于FragmentPagerAdapter)传入index参数(0 ->RecommendFragment )来生成指定的Fragment。
+统一由FragmentCreator进行实例化，由客户MainContentAdapter(继承于FragmentPagerAdapter)传入index参数(每个Fragment都对应一个特定的index )来生成指定的Fragment。
 
 # 三.流程
 
@@ -72,6 +70,8 @@ RecommendFragment根据状态去更新UI，获取状态或为成功/错误/空/�
 当用户点击了RecommendListAdapter列表中的某个专辑时，RecommendListAdapter就会调用onItemClick(album: Album)通知RecommendFragment用户点击了哪个专辑。
 #### DetailActivity
 ![DetailActivity的UML图](RMImg/DA_uml.png)
+\
+\
 上图所示即为DetailActivity的UML图。
 \
 \
