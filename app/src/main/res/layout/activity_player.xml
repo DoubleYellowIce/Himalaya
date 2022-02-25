@@ -48,6 +48,7 @@
             </TextView>
 
             <SeekBar
+                android:id="@+id/current_dot"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,6 +94,7 @@
                 >
             </ImageView>
             <ImageView
+                android:id="@+id/play_control_view"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"

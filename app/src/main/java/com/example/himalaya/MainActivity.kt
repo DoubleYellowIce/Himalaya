@@ -6,11 +6,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.himalaya.adapters.IndicatorAdapter
 import com.example.himalaya.adapters.MainContentAdapter
+import io.reactivex.rxjava3.core.Observable
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
+import java.util.*
 
- /**
+/**
  * @Author DoubleYellowIce
  * @Date 2021/11/29
  */
@@ -65,8 +67,10 @@ class MainActivity : FragmentActivity() {
         }
 
         ViewPagerHelper.bind(mMagicIndicator, mContentPager)
+
+
+        }
     }
 
 
 
-}

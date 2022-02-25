@@ -21,9 +21,11 @@ interface IPlayerCallback {
 
     fun onPlayModeChange(playMode: XmPlayListControl.PlayMode)
 
-    fun onProgressChange(currentIndex:Long,total:Long)
+    fun onProgressChange(currentIndex:Int,total:Int)
 
     fun onAdLoading()
 
     fun onAdFinished()
+
+
 }

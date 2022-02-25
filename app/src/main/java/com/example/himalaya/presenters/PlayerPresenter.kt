@@ -13,11 +13,15 @@ import com.ximalaya.ting.android.opensdk.player.advertis.IXmAdsStatusListener
 import com.ximalaya.ting.android.opensdk.player.service.IXmPlayerStatusListener
 import com.ximalaya.ting.android.opensdk.player.service.XmPlayListControl
 import com.ximalaya.ting.android.opensdk.player.service.XmPlayerException
+import java.util.*
 
 class PlayerPresenter private constructor():IPlayerPresenter, IXmAdsStatusListener,
     IXmPlayerStatusListener {
 
     private var isPlayListSet=false
+
+
+    private val mPlayerCallbacks =LinkedList<IPlayerCallback>()
 
     companion object{
 
@@ -34,18 +38,28 @@ class PlayerPresenter private constructor():IPlayerPresenter, IXmAdsStatusListen
         mPlayerManager.setPlayList(tracks,index)
     }
 
+    //提供给mPlayerCallbacks的回调 start
     override fun play() {
         if (isPlayListSet){
             mPlayerManager.play()
+            for (cb in mPlayerCallbacks){
+                cb.onPlayStart()
+            }
         }
     }
 
     override fun pause() {
-        TODO("Not yet implemented")
+        mPlayerManager.pause()
+        for (cb in mPlayerCallbacks){
+            cb.onPlayPause()
+        }
     }
 
     override fun stop() {
-        TODO("Not yet implemented")
+        mPlayerManager.stop()
+        for (cb in mPlayerCallbacks){
+            cb.onPlayStop()
+        }
     }
 
     override fun playPre() {
@@ -72,6 +86,11 @@ class PlayerPresenter private constructor():IPlayerPresenter, IXmAdsStatusListen
         TODO("Not yet implemented")
     }
 
+    override fun isPlaying(): Boolean {
+        return mPlayerManager.isPlaying
+    }
+    //提供给mPlayerCallbacks的回调 start
+
     override fun registerViewCallback(t: IPlayerCallback) {
         TODO("Not yet implemented")
     }
@@ -80,7 +99,7 @@ class PlayerPresenter private constructor():IPlayerPresenter, IXmAdsStatusListen
         TODO("Not yet implemented")
     }
 
-    //all the functions below are the callback of the AD player
+    //喜马拉雅广告的回调 start
     override fun onStartGetAdsInfo() {
         LogUtil.d(BaseApplication.TestToken,"PlayerPresenter onStartGetAdsInfo")
 
@@ -109,11 +128,11 @@ class PlayerPresenter private constructor():IPlayerPresenter, IXmAdsStatusListen
     override fun onError(what: Int, extra: Int) {
         LogUtil.d(BaseApplication.TestToken,"PlayerPresenter onError,the what args is $what and the extra arg is $extra")
     }
-    //end of the ad's callbacks
+    //喜马拉雅广告的回调 end
 
-    //the start of the player's callbacks
+    //喜马拉雅播放器的回调接口 start
     override fun onPlayStart() {
-        mPlayerManager.play()
+
     }
 
     override fun onPlayPause() {
@@ -150,13 +169,25 @@ class PlayerPresenter private constructor():IPlayerPresenter, IXmAdsStatusListen
     }
 
     override fun onPlayProgress(current: Int, duration: Int) {
-        LogUtil.d(BaseApplication.TestToken,"onPlayProgress")
+        for (cb in mPlayerCallbacks){
+            cb.onProgressChange(current,duration)
+        }
+        LogUtil.d(BaseApplication.TestToken,"onPlayProgress(),current is $current")
     }
 
     override fun onError(p0: XmPlayerException?): Boolean {
         LogUtil.d(BaseApplication.TestToken,"onError $p0")
         return false
     }
-    //end of the player's callbacks
+    //喜马拉雅播放器的回调接口 end
 
+    fun registerCallback(iPlayerCallback: IPlayerCallback) {
+        mPlayerCallbacks.add(iPlayerCallback)
+    }
+
+    fun unregisterCallback(iPlayerCallback: IPlayerCallback){
+        if (mPlayerCallbacks.contains(iPlayerCallback)){
+            mPlayerCallbacks.remove(iPlayerCallback);
+        }
+    }
 }

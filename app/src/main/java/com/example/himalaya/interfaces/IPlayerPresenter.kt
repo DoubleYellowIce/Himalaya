@@ -5,6 +5,7 @@ import com.ximalaya.ting.android.opensdk.player.service.XmPlayListControl
 
 interface IPlayerPresenter:IBasePresenter<IPlayerCallback> {
 
+
     fun play()
 
     fun pause()
@@ -18,7 +19,7 @@ interface IPlayerPresenter:IBasePresenter<IPlayerCallback> {
     fun switchPlayMode(mode:XmPlayListControl.PlayMode)
 
     /**
-     * get the list of available tracks
+     * 获取播放列表
      */
     fun getPlayList()
 
@@ -26,7 +27,9 @@ interface IPlayerPresenter:IBasePresenter<IPlayerCallback> {
     fun playByIndex()
 
     /**
-     *when the user move the seekBar,this function will be called
+     *当用户拖动进度条时，该方法会被回调
      */
     fun seekTo(progress:Int)
+
+    fun isPlaying():Boolean
 }
