@@ -10,8 +10,9 @@ Presenter类负责与用户的复杂逻辑处理，本应由Model层通过本地
 # 二.常用部件及其应用的设计模式
 
 ### UILoader
-\
-![UILoader的uml图](RMImg/UL_uml.png)
+
+<div align=center><img  src="RMImg/UL_uml.png"/></div>
+
 
 \
 \
@@ -45,16 +46,17 @@ UIStatus是一个定义在UILoader的枚举类，总共有LOADING,SUCCESS,NETWOR
 
 # 三.流程
 
-### 推荐页面流程
+## 推荐页面流程
 <p align="center"><img src="https://user-images.githubusercontent.com/65336599/154831903-231adb7b-69e8-42fc-b1e8-f45ce5e5f406.png">  </p>
 
 如上图所示，当用户选择并点击推荐页面RecommendFragment中的某个专辑时，就会进入相对应专辑的详情界面，也就是DetailActivty，当用户选择并点击详情页面的某一集时，则会进入对应集数的播放界面，也就是PlayerActivity。
 
 需要注意的是，RecommendFragment和DetailActivty都使用了RecyclerView，所以部分事件和UI绘制都在相应的Adapter中。(RecommendFragment对应RecommendListAdapter，DetailActivty对应DetailListAdapter)
 
-#### RecommendFragment
-![RecommendFragment的uml图](RMImg/RF_uml.png)
+### RecommendFragment
 
+
+<div align=center><img  src="RMImg/RF_uml.png"/></div>
 
 上图所示即为RecommendFragment的uml图。
 \
@@ -68,11 +70,22 @@ RecommendFragment根据状态去更新UI，获取状态或为成功/错误/空/�
 \
 \
 当用户点击了RecommendListAdapter列表中的某个专辑时，RecommendListAdapter就会调用onItemClick(album: Album)通知RecommendFragment用户点击了哪个专辑。
-#### DetailActivity
-![DetailActivity的UML图](RMImg/DA_uml.png)
+
+### DetailActivity
+<div align=center><img  src="RMImg/DA_uml.png"/></div>
+
 \
 \
 上图所示即为DetailActivity的UML图。
 \
 \
-DetailActivity的UML图与RecommendFragment的类似，依赖一个Presenter，UILoader和RecyclerView，这里就不再赘述。
+DetailActivity的UML图与RecommendFragment的类似，依赖一个Presenter，UILoader和RecyclerView。
+\
+\
+当Presenter会将获取数据的状态通过IAlbumDetailViewCallback通知DetailActivity。
+\
+\
+当用户点击某一集数时，IAlbumDetailViewCallback会通知DetailActivity用户点击了哪集，DetailActivity将该数据转交给PlayerPresenter，后跳转至PlayerActivity。
+
+### PlayerActivity 
+<div align=center><img  src="RMImg/PA_uml.png"/></div>
