@@ -23,7 +23,10 @@ class PlayerActivity : BaseActivity(),IPlayerCallback {
 
     private var duration:TextView?=null
 
-    private val mDurationFormat= SimpleDateFormat("mm:ss")
+    //当集时长小于一小时时，使用分钟格式
+    private val mMinFormat= SimpleDateFormat("mm:ss")
+
+    private val mHourFormat= SimpleDateFormat("hh:mm")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +42,30 @@ class PlayerActivity : BaseActivity(),IPlayerCallback {
 
     private fun initView(){
         mPlayerControlView=findViewById(R.id.play_control_view)
-        mSeekBar=findViewById(R.id.current_dot)
+        mSeekBar=findViewById<SeekBar?>(R.id.current_dot).apply {
+            setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    if (seekBar!=null){
+                        mPlayerPresenter.seekTo(seekBar.progress)
+                    }
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+
+                }
+
+            })
+        }
         cPosition=findViewById(R.id.current_position)
         duration=findViewById(R.id.track_duration)
-
     }
 
     private fun initEvent(){
@@ -95,9 +118,16 @@ class PlayerActivity : BaseActivity(),IPlayerCallback {
     }
 
     override fun onProgressChange(currentIndex: Int, total: Int) {
-        mSeekBar?.progress=(currentIndex*100/total)
-        cPosition?.text=mDurationFormat.format(currentIndex)
-        duration?.text=mDurationFormat.format(total);
+        //通过设置seekbar的最大值来让其自动计算进度
+        mSeekBar?.max=total
+        if(total>=60*60*1000){
+            cPosition?.text=mHourFormat.format(currentIndex)
+            duration?.text=mHourFormat.format(total)
+        }else{
+            cPosition?.text=mMinFormat.format(currentIndex)
+            duration?.text=mMinFormat.format(total)
+        }
+        mSeekBar?.progress = currentIndex
     }
 
     override fun onAdLoading() {

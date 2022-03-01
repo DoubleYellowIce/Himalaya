@@ -7,7 +7,7 @@ Activity和Fragment承担View职责，负责UI界面的初始化，布局的加�
 Presenter类负责与用户的复杂逻辑处理，本应由Model层通过本地持久化存储或者网络来获取数据，但鉴于项目已经导入喜马拉雅官方SDK，获取数据的代码寥寥数行，
 就不再新建Model类来负责数据获取，故Presenter也承担起获取数据的责任。
 
-# 二.常用部件及其应用的设计模式
+# 二.常用控件及其应用的设计模式
 
 ### UILoader
 
@@ -89,3 +89,20 @@ DetailActivity的UML图与RecommendFragment的类似，依赖一个Presenter，U
 
 ### PlayerActivity 
 <div align=center><img  src="RMImg/PA_uml.png"/></div>
+
+
+从PlayerActivity的UML可以看出，该Activity实现不复杂，这是因为主要的复杂逻辑都在Presenter上，所以这里就不再对PlayerActivity进行赘述，我更多想针对PlayerPresenter做一个详细的文档说明。
+
+
+<div align=center><img  src="RMImg/PP_uml.png"/></div>
+
+可以看到PlayerPresenter总共实现了三个接口，一个自定义接口IPlayerPresenter(Kotlin语言实现)，两个喜马拉雅官方接口(Java语言实现)。
+
+<div align=center><img  src="RMImg/PA_s.png"/></div>
+
+该PlayerPresenter的播放逻辑如上图所示，当PlayerActivity调用PlayerPresenter去播放时，PlayerPresenter会去调用PlayerManger去播放，而PlayerManger首先会播放广告，通过IXmAdsStatusListener接口通知
+PlayerPresenter广告的播放进度，PlayerManger播放完广告后，才会播放用户所选中的集，并通过IXmPlayerStatusListener通知PlayerPresenter当前集的播放状态，
+PlayerPresenter再通过IPlayerCallback通知PlayerActivity当前集的播放状态。
+\
+\
+其他操作逻辑亦是如此，不管是播放上一集，播放下一集，暂停，开始等操作，都是由PlayerActivity调用PlayerPresenter，PlayerPresenter调用PlayerManger，PlayerManger回调PlayerPresenter，PlayerPresenter回调PlayerActivity。

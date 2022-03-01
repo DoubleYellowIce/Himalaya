@@ -20,7 +20,6 @@ class PlayerPresenter private constructor():IPlayerPresenter, IXmAdsStatusListen
 
     private var isPlayListSet=false
 
-
     private val mPlayerCallbacks =LinkedList<IPlayerCallback>()
 
     companion object{
@@ -83,7 +82,7 @@ class PlayerPresenter private constructor():IPlayerPresenter, IXmAdsStatusListen
     }
 
     override fun seekTo(progress: Int) {
-        TODO("Not yet implemented")
+        mPlayerManager.seekTo(progress)
     }
 
     override fun isPlaying(): Boolean {
