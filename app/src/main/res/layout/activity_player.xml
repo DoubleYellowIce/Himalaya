@@ -86,7 +86,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/previous"
+                android:id="@+id/play_pre"
                 android:src="@drawable/ic_track_previous"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
@@ -102,6 +102,7 @@
             >
         </ImageView>
             <ImageView
+                android:id="@+id/play_next"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_weight="1"

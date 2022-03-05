@@ -41,7 +41,6 @@ class DetailActivity:BaseActivity(), IAlbumDetailViewCallback,UILoader.OnRetryCl
 
     private lateinit var mAlbumAuthor:TextView
 
-    private lateinit var mAlbumDetailPresenter: AlbumDetailPresenter
 
     private lateinit var mDetailListRV:RecyclerView
 
@@ -56,11 +55,10 @@ class DetailActivity:BaseActivity(), IAlbumDetailViewCallback,UILoader.OnRetryCl
         setContentView(R.layout.activity_detail)
         window.decorView.systemUiVisibility=View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         initView()
-        mAlbumDetailPresenter= AlbumDetailPresenter.albumDetailPresenter
-        //after registered in the mAlbumDetailPresenter
-        //mAlbumDetailPresenter will automatically callback the onAlbumLoaded() function
-        //so there is no need to use mAlbumDetailPresenter's getAlbumDetail directly
-        mAlbumDetailPresenter.registerViewCallback(this)
+        //after registered in the AlbumDetailPresenter
+        //AlbumDetailPresenter will automatically callback the onAlbumLoaded() function
+        //so there is no need to use AlbumDetailPresenter's getAlbumDetail directly
+        AlbumDetailPresenter.registerViewCallback(this)
 
     }
 
@@ -127,7 +125,7 @@ class DetailActivity:BaseActivity(), IAlbumDetailViewCallback,UILoader.OnRetryCl
         LogUtil.d(BaseApplication.TestToken,"DetailActivity onAlbumLoaded")
         mUiLoader!!.updateStatus(UILoader.UIStatus.LOADING)
         mCurrentId=album.id.toInt()
-        mAlbumDetailPresenter.getAlbumDetail(mCurrentId,mCurrentPage)
+        AlbumDetailPresenter.getAlbumDetail(mCurrentId,mCurrentPage)
         mAlbumTitle.text=album.albumTitle
         mAlbumAuthor.text=album.announcer.nickname
         Picasso.get().load(album.coverUrlLarge).into(mLargeCover,object:Callback{
@@ -149,12 +147,12 @@ class DetailActivity:BaseActivity(), IAlbumDetailViewCallback,UILoader.OnRetryCl
 
     override fun onRetryClick() {
         mUiLoader!!.updateStatus(UILoader.UIStatus.LOADING)
-        mAlbumDetailPresenter.getAlbumDetail(mCurrentId,mCurrentPage)
+        AlbumDetailPresenter.getAlbumDetail(mCurrentId,mCurrentPage)
     }
 
     override fun onItemClick(mDetailData: List<Track>, position: Int) {
         //
-        PlayerPresenter.playerPresenter.setPlayList(mDetailData,position)
+        PlayerPresenter.setPlayList(mDetailData,position)
         val intent=Intent(this,PlayerActivity::class.java)
         startActivity(intent)
     }

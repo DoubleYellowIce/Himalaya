@@ -37,7 +37,12 @@ class RecommendListAdapter:RecyclerView.Adapter<RecommendListAdapter.ViewHolder>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val album=albumList[position]
         holder.apply {
-            Picasso.get().load(album.coverUrlLarge).into(albumCover)
+            if (album.coverUrlLarge.isNotEmpty()){
+                Picasso.get().load(album.coverUrlLarge).into(albumCover)
+            }else{
+                Picasso.get().load(R.drawable.ic_pic_loading_fail).into(albumCover)
+            }
+
             albumTitle.text=album.albumTitle
             albumBrief.text=album.albumIntro
             albumViews.text= album.playCount.toString()

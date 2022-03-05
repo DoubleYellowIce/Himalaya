@@ -1,6 +1,5 @@
 package com.example.himalaya.presenters
 
-import androidx.annotation.NonNull
 import com.example.himalaya.base.BaseApplication
 import com.example.himalaya.interfaces.IRecommendPresenter
 import com.example.himalaya.interfaces.IRecommendViewCallback
@@ -13,16 +12,9 @@ import com.ximalaya.ting.android.opensdk.model.album.GussLikeAlbumList
 import java.util.*
 import kotlin.collections.HashMap
 
-class RecommendPresenter private constructor():IRecommendPresenter{
+object RecommendPresenter :IRecommendPresenter{
 
     private val mRecommendViewCallbacks=LinkedList<IRecommendViewCallback>()
-
-    /**
-     * @param
-     */
-    companion object{
-        val instance=RecommendPresenter()
-    }
 
     override fun getRecommendList() {
         onLoading()

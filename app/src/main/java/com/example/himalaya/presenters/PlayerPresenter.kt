@@ -15,21 +15,16 @@ import com.ximalaya.ting.android.opensdk.player.service.XmPlayListControl
 import com.ximalaya.ting.android.opensdk.player.service.XmPlayerException
 import java.util.*
 
-class PlayerPresenter private constructor():IPlayerPresenter, IXmAdsStatusListener,
+object PlayerPresenter :IPlayerPresenter, IXmAdsStatusListener,
     IXmPlayerStatusListener {
 
     private var isPlayListSet=false
 
     private val mPlayerCallbacks =LinkedList<IPlayerCallback>()
 
-    companion object{
-
-        val playerPresenter=PlayerPresenter()
-
-        private val mPlayerManager: XmPlayerManager =XmPlayerManager.getInstance(BaseApplication.sContext).apply {
-            addAdsStatusListener(playerPresenter)
-            addPlayerStatusListener(playerPresenter)
-        }
+    private val mPlayerManager: XmPlayerManager = XmPlayerManager.getInstance(BaseApplication.sContext).apply {
+        addAdsStatusListener(this@PlayerPresenter)
+        addPlayerStatusListener(this@PlayerPresenter)
     }
 
     fun setPlayList(tracks:List<Track>,index:Int){

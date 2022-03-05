@@ -20,15 +20,11 @@ import kotlin.collections.HashMap
   */
 
 
-class AlbumDetailPresenter private constructor():IAlbumDetailPresenter {
+object AlbumDetailPresenter :IAlbumDetailPresenter {
 
     private var mTargetAlbum:Album?=null
 
     private var mAlbumDetailViewCallbacks=LinkedList<IAlbumDetailViewCallback>()
-
-    companion object{
-        val albumDetailPresenter=AlbumDetailPresenter()
-    }
 
     override fun pull2RefreshMore() {
         TODO("Not yet implemented")

@@ -13,15 +13,19 @@ import java.text.SimpleDateFormat
 
 class PlayerActivity : BaseActivity(),IPlayerCallback {
 
-    private var mPlayerPresenter:PlayerPresenter = PlayerPresenter.playerPresenter
+    private var mPlayerControlView:ImageView
 
-    private var mPlayerControlView:ImageView?=null
+    private var mPlayPre:ImageView
 
-    private var mSeekBar:SeekBar?=null
+    private var mPlayNext:ImageView
 
-    private var cPosition:TextView?=null
+    private var mSeekBar:SeekBar
 
-    private var duration:TextView?=null
+    private var cPosition:TextView
+
+    private var duration:TextView
+
+    private var mTrackTitle:TextView
 
     //当集时长小于一小时时，使用分钟格式
     private val mMinFormat= SimpleDateFormat("mm:ss")
@@ -31,18 +35,34 @@ class PlayerActivity : BaseActivity(),IPlayerCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        initView()
         initEvent()
         //before the creation of this activity
         //the playlist has already been set in the playerPresenter
         //if you want to get more information,please check the itemClick() in DetailListAdapter()
-        mPlayerPresenter.play()
+        PlayerPresenter.play()
 
     }
 
-    private fun initView(){
+    init {
         mPlayerControlView=findViewById(R.id.play_control_view)
-        mSeekBar=findViewById<SeekBar?>(R.id.current_dot).apply {
+        mSeekBar=findViewById(R.id.current_dot)
+        cPosition=findViewById(R.id.current_position)
+        duration=findViewById(R.id.track_duration)
+        mTrackTitle=findViewById(R.id.track_title)
+        mPlayPre=findViewById(R.id.play_pre)
+        mPlayNext=findViewById(R.id.play_next)
+    }
+
+    private fun initEvent(){
+        PlayerPresenter.registerCallback(this)
+        mPlayerControlView?.setOnClickListener(){
+            if (PlayerPresenter.isPlaying()){
+                PlayerPresenter.pause()
+            }else{
+                PlayerPresenter.play()
+            }
+        }
+        mSeekBar.apply {
             setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(
                     seekBar: SeekBar?,
@@ -50,7 +70,7 @@ class PlayerActivity : BaseActivity(),IPlayerCallback {
                     fromUser: Boolean
                 ) {
                     if (seekBar!=null){
-                        mPlayerPresenter.seekTo(seekBar.progress)
+                        PlayerPresenter.seekTo(seekBar.progress)
                     }
                 }
 
@@ -59,30 +79,15 @@ class PlayerActivity : BaseActivity(),IPlayerCallback {
 
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
 
-
                 }
-
             })
-        }
-        cPosition=findViewById(R.id.current_position)
-        duration=findViewById(R.id.track_duration)
-    }
-
-    private fun initEvent(){
-        mPlayerPresenter.registerCallback(this)
-        mPlayerControlView?.setOnClickListener(){
-            if (mPlayerPresenter.isPlaying()){
-                mPlayerPresenter.pause()
-            }else{
-                mPlayerPresenter.play()
-            }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mPlayerPresenter.unregisterCallback(this)
-        mPlayerPresenter.stop()
+        PlayerPresenter.unregisterCallback(this)
+        PlayerPresenter.stop()
     }
 
     override fun onPlayStart() {

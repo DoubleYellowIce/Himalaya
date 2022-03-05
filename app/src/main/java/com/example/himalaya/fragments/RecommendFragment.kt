@@ -34,8 +34,6 @@ class RecommendFragment: BaseFragment(),IRecommendViewCallback,UILoader.OnRetryC
 
     private lateinit var mRecommendAdapter:RecommendListAdapter
 
-    private lateinit var recommendPresenter:RecommendPresenter
-
     private lateinit var mUILoader: UILoader
 
     private lateinit var albums: List<Album>
@@ -55,10 +53,12 @@ class RecommendFragment: BaseFragment(),IRecommendViewCallback,UILoader.OnRetryC
             }
         }.apply { addRetryClickListener(this@RecommendFragment) }
 
-        recommendPresenter=RecommendPresenter.instance.apply {
+
+        RecommendPresenter.apply {
             registerViewCallback(this@RecommendFragment)
             getRecommendList()
         }
+
 
         if (mUILoader.parent is ViewGroup){
             (mUILoader.parent as ViewGroup).removeView(mUILoader)
@@ -121,18 +121,18 @@ class RecommendFragment: BaseFragment(),IRecommendViewCallback,UILoader.OnRetryC
     override fun onDestroyView() {
         LogUtil.d(BaseApplication.TestToken,"RecommendFragment onDestroyView()")
         super.onDestroyView()
-        recommendPresenter.unregisterViewCallback(this)
+        RecommendPresenter.unregisterViewCallback(this)
     }
 
      override fun onRetryClick() {
-         recommendPresenter.getRecommendList()
+         RecommendPresenter.getRecommendList()
      }
 
      override fun onItemClick(album:Album) {
          //set the albumDetailPresenter's mTargetAlbum to the album which is clicked
          //so after the DetailActivity has register in albumDetailPresenter
          //the albumDetailPresenter will transfer this album as parameter to the onAlbumLoaded() function in DetailActivity
-         AlbumDetailPresenter.albumDetailPresenter.setTargetAlbum(album)
+         AlbumDetailPresenter.setTargetAlbum(album)
          val intent=Intent(context,DetailActivity::class.java)
          startActivity(intent)
      }

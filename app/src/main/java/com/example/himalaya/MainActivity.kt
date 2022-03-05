@@ -1,7 +1,10 @@
 package com.example.himalaya
 
 
+import android.content.res.Resources
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.himalaya.adapters.IndicatorAdapter
@@ -45,6 +48,12 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
+//        val option=BitmapFactory.Options()
+//        option.inJustDecodeBounds=true
+//        val bitmap=BitmapFactory.decodeResource(resources,R.drawable.ic_track_play,option)
+//        val width=option.outWidth
+//        val height=option.outHeight
+
     }
 
     private fun initView(){
