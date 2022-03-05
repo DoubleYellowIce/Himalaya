@@ -1,4 +1,6 @@
-# 一.架构
+# 一.简介
+Himalaya是一个类似于喜马拉雅应用的听书软件，使用喜马拉雅官方提供的SDK进行获取数据。
+# 二.架构
 
 喜马拉雅项目采用的是MVP架构。
 
@@ -7,7 +9,7 @@ Activity和Fragment承担View职责，负责UI界面的初始化，布局的加�
 Presenter类负责与用户的复杂逻辑处理，本应由Model层通过本地持久化存储或者网络来获取数据，但鉴于项目已经导入喜马拉雅官方SDK，获取数据的代码寥寥数行，
 就不再新建Model类来负责数据获取，故Presenter也承担起获取数据的责任。
 
-# 二.常用控件及其应用的设计模式
+# 三.常用控件及其应用的设计模式
 
 ### UILoader
 
@@ -44,7 +46,7 @@ UIStatus是一个定义在UILoader的枚举类，总共有LOADING,SUCCESS,NETWOR
 该项目总共有三个Fragment，HistoryFragment，RecommendFragment,SubsriptionFragment，该项目没有直接实例化的方式，而是使用了简单工厂设计模式，
 统一由FragmentCreator进行实例化，由客户MainContentAdapter(继承于FragmentPagerAdapter)传入index参数(每个Fragment都对应一个特定的index )来生成指定的Fragment。
 
-# 三.流程
+# 四.流程
 
 ## 推荐页面流程
 <p align="center"><img src="https://user-images.githubusercontent.com/65336599/154831903-231adb7b-69e8-42fc-b1e8-f45ce5e5f406.png">  </p>
