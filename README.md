@@ -100,7 +100,7 @@ DetailActivity的UML图与RecommendFragment的类似，依赖一个Presenter，U
 
 可以看到PlayerPresenter总共实现了三个接口，一个自定义接口IPlayerPresenter(Kotlin语言实现)，两个喜马拉雅官方接口(Java语言实现)。
 
-<div align=center><img  src="RMImg/PA_s.png"/></div>
+<div align=center><img  src="RMImg/PA_S.png"/></div>
 
 该PlayerPresenter的播放逻辑如上图所示，当PlayerActivity调用PlayerPresenter去播放时，PlayerPresenter会去调用PlayerManger去播放，而PlayerManger首先会播放广告，通过IXmAdsStatusListener接口通知
 PlayerPresenter广告的播放进度，PlayerManger播放完广告后，才会播放用户所选中的集，并通过IXmPlayerStatusListener通知PlayerPresenter当前集的播放状态，
